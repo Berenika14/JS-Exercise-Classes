@@ -97,7 +97,7 @@ describe('Instance of Person', () => {
     })
     it('[11] drive method when NOT enough fuel returns correct string', () => {
       batmobile.fill(10)
-      expect(batmobile.drive(201)).toContain(200)
+      expect(batmobile.drive(201)).toContain(`200`)
     })
   })
   
