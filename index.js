@@ -42,9 +42,26 @@ class Airplane {
 */
 
 class Person {
+  constructor(name, age ){
+    this.name = name;
+    this.age = age;
+    this.stomach= [];
+  }
+  eat(edible){
+    if(this.stomach.length < 10){
+      this.stomach.push(edible)}
+     }
+     poop(){
+       return this.stomach =[];
+     }
+     toString(){
+       return `${this.name}, ${this.age} `
+     }
+    }
+    
+    // const nika = new Person('Nika',35)
+    // console.log(nika.toString())
   
-}
-
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
@@ -60,8 +77,30 @@ class Person {
 */
 
 class Car {
-  
+  constructor(model,milesPerGallon){
+    this.model=model;
+    this.milesPerGallon= milesPerGallon;
+    this.tank =0;
+    this.odometer =0;
+  }
+  fill(gallons){
+    return  this.tank += gallons;
+  }
+  drive(distance){
+    this.odometer += distance;
+    const newTank = this.tank -distance /this.milesPerGallon
+    
+    if (newTank <= 0 ){
+    return ` I ran out of fuel at ${this.odometer} miles!`
+  }
+  this.tank = newTank;
+  return newTank;
+  }
+
 }
+const tes = new Car('Tesla', 20)
+console.log(tes.fill(10));
+console.log(tes.drive(200));
 
 /*
   TASK 3
@@ -76,8 +115,24 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
+  constructor(obj){
+    this.name = obj.name;
+    this.age = obj.age;
+    this.location = obj.location;
+  }
+  speak(){
+    
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
   
 }
+const nika = new Lambdasian({
+  name: 'Nika',
+  age: 26,
+  location:'New York',
+});
+// console.log(nika.speak())
+
 
 /*
   TASK 4
@@ -93,9 +148,33 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(obj){
+    super(obj);
+    this.specialty = obj.specialty;
+    this.favLanguage = obj.favLanguage;
+    this.catchPhrase = obj.catchPhrase;
+  }
+  demo(subject){
+    return ` Today we are learning about ${subject} where subject is the param passed in`
+ }
+ grade(student , subject){
+   return `${student.name} receives a perfect score on ${subject}`
+ }
 }
+
+ const tar = new Instructor({
+   name : 'Tara',
+   age: 18,
+   location :'Hong Kong',
+   specialty: 'Node',
+   favLanguage: "JavaScript",
+   catchPhrase:'It is what it is'
+ })
+
+//  console.log(tar.speak())
+//  console.log(tar.demo('Arrays'))
+//  console.log(tar.grade({ name:'Orr'} ,'React'))
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -111,10 +190,33 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-   
+class Student extends Lambdasian{
+  constructor(obj){
+    super(obj);
+    this.previousBackground = obj.previousBackground;
+    this.className =obj.className;
+    this.favSubjects =obj.favSubjects;
+  }
+   listSubjects(){
+     return `Loving ${this.favSubjects}`
+   }
+   PRAssignment(subject){
+     return `${this.name} has submitted a PR for ${subject}`
+   }
+   sprintChallenge(subject){
+     return `${this.name} has begun sprint challenge on ${subject}`
+   }
 }
-
+const aron = new Student({
+  name:`Aron`,
+  age : 24,
+  location: 'Nashville',
+  previousBackground : 'Free Lancer',
+  className : 'WEB50',
+  favSubjects : ['HTML', 'CSS' , 'React']
+})
+// // console.log(aron.speak())
+// console.log(aron.listSubjects())
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
@@ -128,9 +230,36 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-   
+class ProjectManager extends Instructor{
+  constructor(obj){
+    super(obj);
+    this.gradClassName =obj.gradClassName;
+    this.favInstructor =obj.favInstructor;
+  }
+  standUp(slackChannel){
+    return ` ${this.name} announces to ${slackChannel}, @channel standy times!`
+  }
+   debugsCode(student, subject){
+     return `${this.name} debugs ${student.name}'s code on ${subject}`
+   }
 }
+const ilda = new ProjectManager({
+  name :'Ilda',
+  age:'30',
+  location:'Geneva',
+  specialty : 'Game Design',
+  favLanguage:'TypeScript',
+  catchPhrase:'alright people lets do this',
+  gradClassName: 'CS1',
+  favInstructor:'Sean',
+})
+ 
+// console.log(ilda.speak());
+// console.log(ilda.grade({name:'Rina'},'Math'));
+// console.log(ilda.debugsCode({name :'Lindi'}, 'redux'));
+
+
+
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
